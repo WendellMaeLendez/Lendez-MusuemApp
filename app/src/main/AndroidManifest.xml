@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WendellLAB4">
         <activity
+            android:name=".TicketingService"
+            android:exported="false"
+            android:label="@string/title_activity_ticketing_service"
+            android:theme="@style/Theme.WendellLAB4" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
