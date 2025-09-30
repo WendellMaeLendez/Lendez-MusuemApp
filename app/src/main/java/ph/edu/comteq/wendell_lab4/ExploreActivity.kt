@@ -1,5 +1,6 @@
 package ph.edu.comteq.wendell_lab4
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,10 +27,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ph.edu.comteq.wendell_lab4.ui.theme.WendellLAB4Theme
@@ -48,7 +51,7 @@ class ExploreActivity : ComponentActivity() {
 
 @Composable
 fun ExplorePage() {
-
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -82,20 +85,28 @@ fun ExplorePage() {
             Row (
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Text(
-                    text = "Tickets",
-                    color = Color.White,
-                    fontFamily = playfairdisplayregular,
-                    fontSize = 17.sp
-                )
-
+                Button(
+                    onClick = {
+                        val intent = Intent(context, TicketingService::class.java)
+                        context.startActivity(intent)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFF4AF37)
+                    ),
+                    modifier = Modifier.padding(10.dp)
+                ) {
+                    Text("Tickets", color = Color.Black)
+                }
                 Image(
                     painter = painterResource(id = R.drawable.chevron_right),
                     contentDescription = "Arrow",
                     modifier = Modifier.size(24.dp)
                 )
             }
+
         }
+
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -189,5 +200,12 @@ fun ExplorePage() {
                 fontFamily = playfairdisplayregular,
                 fontSize = 15.sp)
         }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun ExplorePagePreview() {
+    WendellLAB4Theme {
+        Homepage()
     }
 }
