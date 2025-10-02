@@ -1,6 +1,5 @@
 package ph.edu.comteq.wendell_lab4
 
-import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +28,10 @@ import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -72,6 +76,11 @@ fun Ticketing(name: String, modifier: Modifier = Modifier) {
 
         }
     )
+
+    var ticketCount by remember { mutableStateOf(0) }
+    var freeTickets by remember { mutableStateOf(0) }
+    val ticketPrice = 500
+    val totalPrice = ticketCount * ticketPrice
     Column (
         modifier = modifier.background(Color.Black)
     ){
@@ -80,14 +89,14 @@ fun Ticketing(name: String, modifier: Modifier = Modifier) {
                 .weight(weight = 1f)
                 .verticalScroll(rememberScrollState())
         ){
-//            Header
+//          Header
             Box(
                 modifier = Modifier.fillMaxWidth().height(230.dp),
                 contentAlignment = Alignment.Center
             ){
                 Image(
                     painter = painterResource(id = ph.edu.comteq.wendell_lab4.R.drawable.background_ticket),
-                    contentDescription = "Musuem",
+                    contentDescription = "Museum",
                     modifier = Modifier.fillMaxWidth().height(230.dp),
                     contentScale = ContentScale.Crop
                 )
@@ -105,7 +114,7 @@ fun Ticketing(name: String, modifier: Modifier = Modifier) {
                     lineHeight = 36.sp
                 )
             }
-//            inner container for date and ticket types
+//          inner container for date and ticket types
             Column (
                 modifier = Modifier.fillMaxWidth().fillMaxHeight()
             ){
@@ -134,11 +143,124 @@ fun Ticketing(name: String, modifier: Modifier = Modifier) {
                         disabledDayContentColor = Color.Gray,
                     )
                 )
-//                general admission ticket
 
-//                free tickets
+                Text(
+                    "2. Number of Tickets",
+                    fontSize = 26.sp,
+                    fontFamily = playfairdisplayregular,
+                    color = Color(color=0xFFd29f1b),
+                    modifier = Modifier.padding(10.dp)
+                )
+
+//              general Admission
+                Row (verticalAlignment = Alignment.CenterVertically){
+
+                    Column {
+                        Text(
+                            "General Admission",
+                            fontSize = 18.sp,
+                            fontFamily = playfairdisplayregular,
+                            color = Color.White,
+                            modifier = Modifier.padding(10.dp)
+                        )
+                        Text(
+                            "₱500",
+                            fontSize = 20.sp,
+                            fontFamily = playfairdisplayregular,
+                            color = Color(color = 0xFFd29f1b)
+                        )
+                    }
+                    Button(
+                        onClick = { if (ticketCount > 0) ticketCount--},
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(color = 0xFFd29f1b)
+                        ),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            "-",
+                            fontSize = 20.sp,
+                            color = Color.Black
+                        )
+                    }
+                    Text(
+                        text = ticketCount.toString(),
+                        fontSize = 20.sp,
+                        color = Color.White,
+                        modifier = Modifier.padding(horizontal = 10.dp)
+                    )
+                    Button(
+                        onClick = { ticketCount ++ },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(color = 0xFFd29f1b)
+                        ),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            "+",
+                            fontSize = 20.sp,
+                            color = Color.Black
+                        )
+                    }
+
+                }
+
+//              free tickets
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Column {
+                        Text(
+                            "Under 18s, Under 26s residents of the EEA,\nMuseum Members,\nProfessional",
+                            fontSize = 15.sp,
+                            fontFamily = playfairdisplayregular,
+                            color = Color.White
+                        )
+                        Text(
+                            "FREE",
+                            fontSize = 20.sp,
+                            fontFamily = playfairdisplayregular,
+                            color = Color(color = 0xFFd29f1b)
+                        )
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Button(
+                            onClick = { if (freeTickets > 0) freeTickets-- },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(color = 0xFFd29f1b)
+                            ),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp)
+                        ) {
+                            Text("-", fontSize = 20.sp, color = Color.Black)
+                        }
+
+                        Text(
+                            text = freeTickets.toString(),
+                            fontSize = 20.sp,
+                            color = Color.White,
+                            modifier = Modifier.padding(horizontal = 10.dp)
+                        )
+
+                        Button(
+                            onClick = { freeTickets++ },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(color = 0xFFd29f1b)
+                            ),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp)
+                        ) {
+                            Text("+", fontSize = 20.sp, color = Color.Black)
+                        }
+                    }
+                }
             }
         }
+
 //        Bottom bar for total
         Row (
             modifier = Modifier.fillMaxWidth().height(80.dp)
@@ -149,7 +271,7 @@ fun Ticketing(name: String, modifier: Modifier = Modifier) {
 
         ){
             Text(
-                "Total: ₱500",
+                "Total: ₱${totalPrice}",
                 fontSize = 26.sp,
                 fontFamily = playfairdisplayregular,
                 color = Color.Black
@@ -169,7 +291,6 @@ fun Ticketing(name: String, modifier: Modifier = Modifier) {
                 )
             }
         }
-
     }
 }
 
