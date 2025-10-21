@@ -1,11 +1,13 @@
 package ph.edu.comteq.wendell_lab4
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +51,8 @@ class ExploreActivity : ComponentActivity() {
 
 @Composable
 fun ExplorePage() {
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -176,7 +181,10 @@ fun ExplorePage() {
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
-            onClick = { },
+            onClick = {
+                val intent = Intent(context, ArtistsPage::class.java)
+                context.startActivity(intent)
+            },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4AF37)),
             shape = RoundedCornerShape(bottomStart = 15.dp, bottomEnd = 15.dp),
             modifier = Modifier

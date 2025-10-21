@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WendellLAB4">
         <activity
+            android:name=".ExhibitPage"
+            android:exported="false"
+            android:label="@string/title_activity_exhibit_page"
+            android:theme="@style/Theme.WendellLAB4" />
+        <activity
+            android:name=".ArtistsPage"
+            android:exported="false"
+            android:label="@string/title_activity_artists_page"
+            android:theme="@style/Theme.WendellLAB4" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
