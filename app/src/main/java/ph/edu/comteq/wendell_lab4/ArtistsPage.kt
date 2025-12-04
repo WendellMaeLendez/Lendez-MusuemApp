@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -217,6 +218,8 @@ fun ArtistList() {
 }
 @Composable
 fun ArtistItem(name: String, years: String, artworks: List<Int>) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier.padding(vertical = 8.dp)
     ) {
@@ -251,13 +254,22 @@ fun ArtistItem(name: String, years: String, artworks: List<Int>) {
                     modifier = Modifier
                         .size(120.dp)
                         .padding(end = 8.dp)
-                        .clip(RoundedCornerShape(12.dp)),
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable {
+                            // If this artwork is Mona Lisa, open ExhibitActivity
+                            if (art == R.drawable.mona_lisa) {
+                                val intent = android.content.Intent(context, ExhibitPage::class.java)
+                                intent.putExtra("artworkName", "Mona Lisa")
+                                context.startActivity(intent)
+                            }
+                        },
                     contentScale = ContentScale.Crop
                 )
             }
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

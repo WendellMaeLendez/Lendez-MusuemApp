@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.compose.foundation:foundation:1.6.1")
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation(libs.androidx.core.ktx)
